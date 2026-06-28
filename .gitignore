@@ -1,0 +1,13 @@
+# secrets — never commit these
+.env
+*.key
+*.ed25519.key
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# os
+.DS_Store
