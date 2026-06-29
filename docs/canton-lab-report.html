@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Touching the Ledger — Canton DevNet Lab Report</title>
+<title>Touching the Ledger — Canton DevNet Lab</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
@@ -27,7 +27,6 @@
   .wrap{max-width:920px; margin:0 auto; padding:clamp(28px,5vw,68px) clamp(20px,4vw,40px);}
   .mono{font-family:"JetBrains Mono",ui-monospace,monospace;}
 
-  /* ---- eyebrow / hero ---- */
   .eyebrow{
     font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.22em;
     text-transform:uppercase; color:var(--teal); display:flex; gap:14px; align-items:center;
@@ -37,10 +36,9 @@
     font-family:"Space Grotesk",sans-serif; font-weight:600; letter-spacing:-.02em;
     font-size:clamp(38px,7vw,72px); line-height:.98; margin:.35em 0 .25em;
   }
-  .lede{color:var(--mut); max-width:60ch; font-size:clamp(15px,2.2vw,17px);}
+  .lede{color:var(--mut); max-width:62ch; font-size:clamp(15px,2.2vw,17px);}
   .lede b{color:var(--txt); font-weight:600;}
 
-  /* ---- hero artifact: the party ---- */
   .artifact{
     margin-top:34px; background:var(--ink-2); border:1px solid var(--line);
     border-radius:var(--r); padding:22px 22px 20px; position:relative; overflow:hidden;
@@ -60,7 +58,17 @@
     padding:5px 9px; font-weight:700; opacity:.92;
   }
 
-  /* ---- tally strip ---- */
+  /* breakthrough callout */
+  .callout{
+    margin-top:20px; border:1px solid rgba(25,194,163,.3); border-radius:var(--r);
+    background:linear-gradient(180deg, rgba(25,194,163,.07), rgba(25,194,163,.02));
+    padding:20px 22px;
+  }
+  .callout .lab{font-family:"JetBrains Mono",monospace; font-size:11px; letter-spacing:.18em;
+    text-transform:uppercase; color:var(--teal);}
+  .callout p{margin:8px 0 0; color:var(--txt); font-size:15px;}
+  .callout .mono{color:var(--teal);}
+
   .tally{display:flex; flex-wrap:wrap; gap:12px; margin:30px 0 8px;}
   .tally .cell{
     flex:1 1 150px; background:var(--ink-2); border:1px solid var(--line);
@@ -71,7 +79,6 @@
   .tally .t-teal .num{color:var(--teal);} .tally .t-amber .num{color:var(--amber);}
   .tally .t-mut .num{color:var(--txt);}
 
-  /* ---- section heads ---- */
   .sec{margin-top:60px;}
   .sec-head{display:flex; align-items:baseline; gap:14px; margin-bottom:22px;}
   .sec-head .no{font-family:"JetBrains Mono",monospace; color:var(--teal); font-size:13px; font-weight:700;}
@@ -79,7 +86,6 @@
     letter-spacing:-.01em; margin:0;}
   .sec-head .rule{flex:1; height:1px; background:var(--line);}
 
-  /* ---- trace rail ---- */
   .trace{position:relative; margin-left:7px; padding-left:34px;}
   .trace::before{content:""; position:absolute; left:0; top:8px; bottom:8px; width:2px;
     background:linear-gradient(180deg,var(--line),var(--line) 70%, transparent);}
@@ -106,28 +112,33 @@
   .ev .ok{color:var(--teal);}
   .ev .nm{color:var(--teal);}
 
-  /* ---- feedback cards ---- */
   .grid{display:grid; gap:14px;}
   .card{background:var(--paper); color:var(--paper-ink); border-radius:var(--r); padding:18px 20px;
     border:1px solid var(--paper-line); position:relative;}
   .card.fric{border-left:4px solid var(--brick);}
+  .card.solved{border-left:4px solid var(--teal);}
   .card.win{border-left:4px solid var(--teal);}
-  .card .ct{display:flex; gap:10px; align-items:baseline; margin-bottom:6px;}
+  .card .ct{display:flex; gap:10px; align-items:baseline; margin-bottom:6px; flex-wrap:wrap;}
   .card .ci{font-family:"JetBrains Mono",monospace; font-size:12px; font-weight:700; color:var(--paper-mut);}
   .card h4{font-family:"Space Grotesk",sans-serif; font-weight:600; font-size:16px; margin:0; letter-spacing:-.01em; color:var(--paper-ink);}
+  .card .tag{font-family:"JetBrains Mono",monospace; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase;
+    padding:2px 7px; border-radius:20px; font-weight:700; background:rgba(25,194,163,.14); color:#0E8E78;}
   .card p{margin:0; font-size:14.5px; color:#4A5266;}
   .card code{font-family:"JetBrains Mono",monospace; font-size:12.5px; background:#EFEAdd;
     padding:1px 5px; border-radius:5px; color:#3A4254; word-break:break-all;}
   .sub-h{font-family:"JetBrains Mono",monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase;
     color:var(--mut); margin:6px 0 14px;}
 
-  /* ---- footer ---- */
+  .links{display:flex; flex-wrap:wrap; gap:12px; margin-top:18px;}
+  .links a{font-family:"JetBrains Mono",monospace; font-size:13px; text-decoration:none;
+    border:1px solid var(--line); border-radius:10px; padding:10px 14px; color:var(--txt); background:var(--ink-2);}
+  .links a:hover{border-color:var(--teal); color:var(--teal);}
+
   footer{margin-top:64px; padding-top:24px; border-top:1px solid var(--line);
     display:flex; flex-wrap:wrap; gap:14px 28px; align-items:baseline; color:var(--mut); font-size:13px;}
   footer .mono{color:var(--txt);}
   footer .dot-sep{color:var(--line);}
 
-  /* ---- motion ---- */
   @media (prefers-reduced-motion:no-preference){
     .reveal{opacity:0; transform:translateY(10px); animation:rise .6s cubic-bezier(.2,.7,.2,1) forwards;}
     @keyframes rise{to{opacity:1; transform:none;}}
@@ -139,26 +150,36 @@
 <body>
 <main class="wrap">
 
-  <!-- HERO -->
   <p class="eyebrow reveal">Canton DevNet · Low-Level Lab</p>
   <h1 class="reveal" style="animation-delay:.05s">Touching<br>the Ledger.</h1>
   <p class="lede reveal" style="animation-delay:.1s">
-    A session run entirely over the validator's low-level Admin and JSON Ledger APIs — no wallet, no dApp,
-    no SDK on the machine. <b>Authenticated, allocated an on-ledger party, and proved the read path end to end</b>
-    against a live Canton 3.5.5 node. What follows is the trace, the evidence, and feedback for the lab team.
+    The full Canton lab, hand-rolled over raw JSON — no wallet, no dApp, no SDK. It ends where it
+    should: <b>100 Canton Coin received and verified on-ledger</b>. A party allocated, <b>granted its
+    own ledger rights</b>, an incoming transfer <b>accepted by hand</b>, and the balance read straight
+    out of the Active Contract Set. Below is the real trace — including the two walls that cost the most
+    time and exactly how each fell — plus honest feedback for the lab team.
   </p>
 
   <div class="artifact reveal" style="animation-delay:.15s">
-    <span class="stamp">Verified · DevNet</span>
-    <div class="k">On-ledger identity allocated</div>
+    <span class="stamp">100 CC · Verified</span>
+    <div class="k">Custodial party — holds the coin; balance read from the ACS</div>
     <div class="partyid"><span class="name">farmfort</span>::12204e94c0e449c0efcd270dd1e68259c36471cebef132e5c7dfc2750fe8c9eed77f</div>
   </div>
 
-  <!-- TALLY -->
+  <div class="callout reveal" style="animation-delay:.2s">
+    <div class="lab">The breakthrough</div>
+    <p>The wall wasn't cryptography — it was <b>authorization</b>. A freshly allocated party
+      <span class="mono">403</span>s on <span class="mono">submit-and-wait</span>: allocating a party
+      <b>does not</b> grant your user the right to act as it. The fix was a single self-grant —
+      <span class="mono">POST /v2/users/{sub}/rights</span> with
+      <span class="mono">CanActAs</span> on the party (the hackathon user turned out to be a participant
+      admin). One grant, and every command after it cleared.</p>
+  </div>
+
   <div class="tally">
-    <div class="cell t-teal reveal" style="animation-delay:.2s"><div class="num">3</div><div class="lbl">Stages confirmed, with evidence</div></div>
-    <div class="cell t-amber reveal" style="animation-delay:.25s"><div class="num">1</div><div class="lbl">Awaiting the team (Canton Coin)</div></div>
-    <div class="cell t-mut reveal" style="animation-delay:.3s"><div class="num">3</div><div class="lbl">Ready to run, gated on inputs</div></div>
+    <div class="cell t-teal reveal" style="animation-delay:.25s"><div class="num">7</div><div class="lbl">Stages confirmed on-ledger</div></div>
+    <div class="cell t-amber reveal" style="animation-delay:.3s"><div class="num">100</div><div class="lbl">Canton Coin received &amp; verified</div></div>
+    <div class="cell t-mut reveal" style="animation-delay:.35s"><div class="num">1</div><div class="lbl">Optional stage wired (Token Standard transfer)</div></div>
   </div>
 
   <!-- TRACE -->
@@ -169,63 +190,84 @@
       <div class="step done">
         <span class="dot"></span>
         <div class="top"><span class="sn">S1</span><h3>Authenticate</h3><span class="chip c-done">Confirmed</span></div>
-        <p>Keycloak <span class="mono">client_credentials</span> against the DevNet IdP returned a valid bearer token. Auth and base coordinates verified.</p>
+        <p>Keycloak <span class="mono">client_credentials</span> against the DevNet IdP returned a valid RS256 bearer token. Cache it, refresh ~30s before expiry.</p>
         <div class="ev"><span class="c">// RS256 JWT</span><br>eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwi…  <span class="ok">(ok)</span></div>
       </div>
 
       <div class="step done">
         <span class="dot"></span>
         <div class="top"><span class="sn">S2</span><h3>Allocate a party</h3><span class="chip c-done">Confirmed</span></div>
-        <p>Created a custodial party via <span class="mono">POST /v2/parties</span>. This is the on-ledger actor for every step that follows.</p>
-        <div class="ev"><span class="c">internal party:</span><br><span class="nm">farmfort</span>::12204e94c0e449c0efcd270dd1e68259c36471cebef132e5c7dfc2750fe8c9eed77f</div>
-      </div>
-
-      <div class="step todo">
-        <span class="dot"></span>
-        <div class="top"><span class="sn">S3</span><h3>Set up TransferPreapproval</h3><span class="chip c-todo">Ready to run</span></div>
-        <p>The command path is built. Gated on the create-args for <span class="mono">TransferPreapprovalProposal</span>, which aren't in the lab sheet and can't be introspected without the DAR or a daml/dpm shell locally.</p>
+        <p>Two were stood up: a <b>custodial</b> party via <span class="mono">/v2/parties</span> (validator signs for it), and an <b>external</b> non-custodial party via <span class="mono">/v0/admin/external-party/topology/{generate,submit}</span> with a locally-held ed25519 key. Both are genuinely hosted on the participant. The coin work runs on the custodial party.</p>
+        <div class="ev"><span class="c">custodial party:</span><br><span class="nm">farmfort</span>::12204e94c0e449c0efcd270dd1e68259c36471cebef132e5c7dfc2750fe8c9eed77f</div>
       </div>
 
       <div class="step done">
         <span class="dot"></span>
-        <div class="top"><span class="sn">S4</span><h3>Read ledger state (ACS)</h3><span class="chip c-done">Confirmed</span></div>
-        <p>Full read path proven: <span class="mono">/v2/state/ledger-end</span> → <span class="mono">/v2/state/active-contracts</span> with an <span class="mono">InterfaceFilter</span> on the Holding interface. The empty result is the correct one — no holdings exist yet.</p>
-        <div class="ev"><span class="c">// filter: …HoldingV1:Holding</span><br><span class="ok">[]</span>  <span class="c">// clean — read path green</span></div>
+        <div class="top"><span class="sn">S3</span><h3>Grant the party ledger rights</h3><span class="chip c-done">Confirmed</span></div>
+        <p>The unlock. A custodial party 403s on <span class="mono">submit-and-wait</span> until your user holds <span class="mono">CanActAs</span> on it. Self-granted over the Ledger API — the participant honoured it because the lab user is a participant admin.</p>
+        <div class="ev"><span class="c">// POST /v2/users/{sub}/rights</span><br>{ "newlyGrantedRights": [ { "kind": { "<span class="ok">CanActAs</span>": { "value": { "party": "<span class="nm">farmfort</span>::12204e94…" } } } ] }</div>
       </div>
 
-      <div class="step wait">
+      <div class="step done">
         <span class="dot"></span>
-        <div class="top"><span class="sn">S5</span><h3>Receive Canton Coin</h3><span class="chip c-wait">Awaiting team</span></div>
-        <p>By design, not a faucet. On DevNet the validator operator distributes CC to guest parties, so this stage is a hand-off: partyId sent, awaiting the airdrop. Balance is empty until it lands.</p>
+        <div class="top"><span class="sn">S4</span><h3>Create a TransferPreapproval (proposal)</h3><span class="chip c-done">Confirmed</span></div>
+        <p>Created <span class="mono">TransferPreapprovalProposal</span> via <span class="mono">submit-and-wait</span> — create-args are simply <span class="mono">receiver</span> + <span class="mono">provider</span> (no <span class="mono">expiresAt</span>), provider resolved from <span class="mono">/v0/validator-user</span>. Committed on-ledger.</p>
+        <div class="ev"><span class="c">// submit-and-wait -&gt; 200</span><br>{ "updateId": "1220b4424f87…", "completionOffset": <span class="ok">2192501</span> }</div>
+      </div>
+
+      <div class="step done">
+        <span class="dot"></span>
+        <div class="top"><span class="sn">S5</span><h3>Receive Canton Coin</h3><span class="chip c-done">Confirmed</span></div>
+        <p>A <i>proposal</i> is only half — the provider must <b>accept</b> it to become a live <span class="mono">TransferPreapproval</span>. That didn't happen, so the team sent CC the manual way: a <span class="mono">Splice.Wallet.TransferOffer</span> (the amulet wallet flow), <b>not</b> a Token Standard <span class="mono">TransferInstruction</span>. A wildcard ACS dump found it — an interface-scoped inbox check on the wrong template showed nothing.</p>
+        <div class="ev"><span class="c">// wildcard active-contracts on farmfort</span><br>Splice.Wallet.TransferOffer:<span class="ok">TransferOffer</span>  <span class="c">// sender = cantor8-digik-1 (validator)</span><br>Splice.AmuletTransferInstruction:AmuletTransferInstruction  <span class="c">// ×2, backing locked amulet</span></div>
+      </div>
+
+      <div class="step done">
+        <span class="dot"></span>
+        <div class="top"><span class="sn">S6</span><h3>Accept the offer</h3><span class="chip c-done">Confirmed</span></div>
+        <p>Exercised <span class="mono">TransferOffer_Accept</span> via <span class="mono">submit-and-wait</span> as the receiver — a clean ledger exercise, no disclosed contracts needed, because S3 had already granted the rights.</p>
+        <div class="ev"><span class="c">// exercise TransferOffer_Accept -&gt; 200</span><br>{ "updateId": "12201abd0146…", "completionOffset": <span class="ok">2192828</span> }</div>
+      </div>
+
+      <div class="step done">
+        <span class="dot"></span>
+        <div class="top"><span class="sn">S7</span><h3>Read balance (Holding UTXOs)</h3><span class="chip c-done">Confirmed</span></div>
+        <p>Read path: <span class="mono">/v2/state/ledger-end</span> → <span class="mono">/v2/state/active-contracts</span> on the Holding interface, summing the UTXO pieces. Balance is contracts, not an account number.</p>
+        <div class="ev"><span class="c">// Holding interface, post-accept (allowing for PQS lag)</span><br><span class="ok">BALANCE: 100.0</span>  across 1 Holding(s)  <span class="c">// the Canton Coin is held</span></div>
       </div>
 
       <div class="step todo">
         <span class="dot"></span>
-        <div class="top"><span class="sn">S6</span><h3>Read balance (Holding UTXOs)</h3><span class="chip c-todo">Ready to run</span></div>
-        <p>Built on the same ACS path as S4, summing the Holding contracts. Gated only on S5 — and on Participant Query Store sync once the coin arrives.</p>
-      </div>
-
-      <div class="step todo">
-        <span class="dot"></span>
-        <div class="top"><span class="sn">S7</span><h3>Token Standard transfer</h3><span class="chip c-todo">Ready to run</span></div>
-        <p>Factory flow wired: fetch <span class="mono">TransferFactory</span> from the registry → exercise <span class="mono">TransferFactory_Transfer</span> with the returned context and disclosed contracts. Gated on the registry URL and the instrument-admin (DSO) party.</p>
+        <div class="top"><span class="sn">S8</span><h3>Token Standard transfer</h3><span class="chip c-todo">Wired</span></div>
+        <p>Factory flow built and all inputs resolved — registry (scan-proxy), DSO / instrument-admin, the <span class="mono">Amulet</span> instrument. Optional in the lab; now actually fundable, since there's coin to send.</p>
       </div>
 
     </div>
   </section>
 
-  <!-- TOOLING -->
+  <!-- BUILT -->
   <section class="sec">
     <div class="sec-head"><span class="no">02</span><h2>What got built</h2><span class="rule"></span></div>
     <div class="grid">
       <div class="card win">
-        <div class="ct"><h4>A reusable lab runner</h4></div>
-        <p>One <code>canton_lab.py</code> (httpx) wrapping the whole flow — JWT refresh, party allocation, ACS-by-interface query, Holding-balance sum, a generic submit-and-wait command runner, and the transfer-factory exercise — driven by a subcommand per stage.</p>
+        <h4>A reusable lab runner</h4>
+        <p><code>canton_lab.py</code> (httpx) wraps the flow — JWT refresh, internal <i>and</i> external party allocation, ACS-by-interface query, Holding-balance sum, a pending-transfer check, <code>validator-info</code> to fetch the provider, and the transfer-factory exercise — a subcommand per stage.</p>
       </div>
       <div class="card win">
-        <div class="ct"><h4>Shapes validated against the live node</h4></div>
-        <p>Pulled <code>/docs/openapi</code> off the participant: node is <b>Canton 3.5.5</b>, and <code>JsCommands → SubmitAndWaitResponse</code> plus the <code>/v2</code> paths match what the runner sends. No guessed request shapes left on the read path.</p>
+        <h4>The unblock: grant + preapprove</h4>
+        <p><code>unblock.py</code> diagnoses the user's rights, self-grants <code>CanActAs</code> on the party via <code>POST /v2/users/{sub}/rights</code>, then creates the preapproval. This is the script that broke the 403 logjam.</p>
       </div>
+      <div class="card win">
+        <h4>Find-the-coin &amp; accept</h4>
+        <p><code>inbox.py</code> is a wildcard ACS dump that surfaced the <code>TransferOffer</code> a filtered inbox missed; <code>accept.py</code> exercises <code>TransferOffer_Accept</code> and polls the balance. <code>verify.py</code> is a read-only confirm of the preapproval + balance.</p>
+      </div>
+      <div class="card win">
+        <h4>Shapes validated against the live node</h4>
+        <p>Confirmed against the participant's <code>/docs/openapi</code>: node is <b>Canton 3.5.5</b>. Note: querying a <i>template</i> (e.g. <code>TransferPreapprovalProposal</code>) with an <i>interface</i> filter 404s — match the filter to the type.</p>
+      </div>
+    </div>
+    <div class="links">
+      <a href="https://github.com/phoenicon/cantondemo">↗ Code &amp; full write-up — github.com/phoenicon/cantondemo</a>
     </div>
   </section>
 
@@ -233,27 +275,31 @@
   <section class="sec">
     <div class="sec-head"><span class="no">03</span><h2>Feedback for the lab</h2><span class="rule"></span></div>
 
-    <p class="sub-h">Friction worth fixing</p>
+    <p class="sub-h">Friction — and the answers I found</p>
     <div class="grid" style="margin-bottom:30px">
-      <div class="card fric">
-        <div class="ct"><span class="ci">F1</span><h4>"Internal party" vs the external-party endpoints</h4></div>
-        <p>The sheet says create an <b>internal / custodial</b> party, then routes to <code>/v0/admin/external-party/topology/{generate,submit}</code>. Those contradict. Worth one line stating which path is intended, and when each applies — it's the first place people stall.</p>
+      <div class="card solved">
+        <div class="ct"><span class="ci">F1</span><h4>Allocating a party doesn't grant rights to it</h4><span class="tag">resolved</span></div>
+        <p>The single biggest stall. A custodial party from <code>/v2/parties</code> 403s ("a security-sensitive error") on <code>submit-and-wait</code> because the user has no <code>actAs</code> on it. <b>Answer:</b> grant <code>CanActAs</code> via <code>POST /v2/users/{sub}/rights</code> (or have the team grant it). One line in the sheet saves everyone an hour.</p>
+      </div>
+      <div class="card solved">
+        <div class="ct"><span class="ci">F2</span><h4>The CC airdrop isn't where the inbox looks</h4><span class="tag">resolved</span></div>
+        <p>The team sends coin as a <code>Splice.Wallet.TransferOffer</code>, not a Token Standard <code>TransferInstruction</code> — different mailboxes. An inbox check on the Token Standard interface shows nothing, which reads as "lost." <b>Answer:</b> a wildcard ACS read finds it; accept with <code>TransferOffer_Accept</code>. Worth stating which template the airdrop uses.</p>
+      </div>
+      <div class="card solved">
+        <div class="ct"><span class="ci">F3</span><h4>Preapproval create-args weren't discoverable</h4><span class="tag">resolved</span></div>
+        <p>Over pure REST the <code>TransferPreapprovalProposal</code> fields aren't findable — the OpenAPI carries HTTP shapes, not Daml templates. <b>Answer:</b> create-args are simply <code>receiver</code> + <code>provider</code> (no <code>expiresAt</code>). A sample payload would unblock instantly.</p>
       </div>
       <div class="card fric">
-        <div class="ct"><span class="ci">F2</span><h4>Preapproval create-args aren't discoverable over REST</h4></div>
-        <p>Anyone working purely through the JSON API — no <code>daml</code>/<code>dpm</code> installed — can't find the fields for <code>TransferPreapprovalProposal</code>. The OpenAPI doesn't carry Daml template fields. A sample create payload in the sheet would unblock it instantly.</p>
+        <div class="ct"><span class="ci">F4</span><h4>"Internal party" vs the external-party endpoints</h4></div>
+        <p>The sheet says create an <b>internal / custodial</b> party, then routes to <code>/v0/admin/external-party/topology/{generate,submit}</code> — which is the <b>external</b> path. One line naming each (and that a generated party-id ≠ a fully-onboarded party) removes a real source of confusion.</p>
       </div>
       <div class="card fric">
-        <div class="ct"><span class="ci">F3</span><h4>Transfer prerequisites are missing</h4></div>
-        <p>The Token Standard transfer needs the <b>CC registry base URL</b> and the <b>DSO / instrument-admin party</b>. Neither is in the sheet, and the registry-to-admin mapping has to be maintained client-side today. Pre-sharing both removes a hard blocker on the final step.</p>
+        <div class="ct"><span class="ci">F5</span><h4>PQS lag isn't called out</h4></div>
+        <p>After a transfer, Holding contracts can take minutes to surface while the Participant Query Store syncs. Without a note, an empty balance reads as a broken setup. Poll, don't panic.</p>
       </div>
       <div class="card fric">
-        <div class="ct"><span class="ci">F4</span><h4>PQS lag isn't called out</h4></div>
-        <p>After an airdrop, Holding contracts can take minutes (up to ~15) to surface while the Participant Query Store syncs. Without a note, an empty balance reads as a broken setup. One sentence saves a lot of confused retries.</p>
-      </div>
-      <div class="card fric">
-        <div class="ct"><span class="ci">F5</span><h4>Coin distribution is a manual round-trip</h4></div>
-        <p>Routing every guest through the team for CC is a natural bottleneck under time pressure. A scoped DevNet faucet or self-mint for lab parties would let people self-serve through S5–S7 at their own pace.</p>
+        <div class="ct"><span class="ci">F6</span><h4>Coin distribution is a manual round-trip</h4></div>
+        <p>Routing every guest through the team for CC is a bottleneck under time pressure. A scoped DevNet faucet for lab parties would let people self-serve through the back half at their own pace.</p>
       </div>
     </div>
 
@@ -261,25 +307,25 @@
     <div class="grid">
       <div class="card win">
         <div class="ct"><span class="ci">W1</span><h4>The "bare metal" framing earns its keep</h4></div>
-        <p>Going under the wallet and dApp abstractions — party, topology, ACS, holdings, transfer — builds real intuition for what those layers actually hide. Exactly the right altitude for people who'll go on to build on Canton.</p>
+        <p>Going under the wallet and dApp abstractions builds real intuition for what those layers hide. Granting your own party rights, then accepting a transfer by hand, is the thing that makes Canton's trust model click.</p>
       </div>
       <div class="card win">
         <div class="ct"><span class="ci">W2</span><h4>The mental model maps cleanly</h4></div>
-        <p>Party = identity, validator = access layer, ACS = current truth, Holding = balance in pieces, Token Standard = reusable rail. That mapping is the most portable thing in the lab — keep it front and centre.</p>
+        <p>Party = identity, validator = access, ACS = current truth, Holding = balance in pieces, Token Standard = reusable rail. The most portable thing in the lab — keep it front and centre.</p>
       </div>
       <div class="card win">
         <div class="ct"><span class="ci">W3</span><h4>Live <code>/docs/openapi</code> is a great safety net</h4></div>
-        <p>Being able to pull the node's own spec to confirm versions and request shapes mid-build is genuinely useful, and not obvious to first-timers. Worth pointing at explicitly in the sheet.</p>
+        <p>Pulling the node's own spec to confirm versions and request shapes mid-build was decisive every time a field was off. Worth pointing at explicitly in the sheet.</p>
       </div>
     </div>
   </section>
 
   <footer>
-    <span><span class="mono">Tokenise.Farm</span> · FarmFort — evaluating Build on Canton, Track 2 (RWA)</span>
+    <span><span class="mono">Tokenise.Farm</span> · FarmFort — Build on Canton, Track 2 (RWA)</span>
     <span class="dot-sep">•</span>
     <span class="mono">Canton DevNet · 3.5.5</span>
     <span class="dot-sep">•</span>
-    <span class="mono">28 Jun 2026</span>
+    <span class="mono">29 Jun 2026</span>
   </footer>
 
 </main>
