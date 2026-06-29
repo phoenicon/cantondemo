@@ -153,11 +153,12 @@
   <p class="eyebrow reveal">Canton DevNet · Low-Level Lab</p>
   <h1 class="reveal" style="animation-delay:.05s">Touching<br>the Ledger.</h1>
   <p class="lede reveal" style="animation-delay:.1s">
-    The full Canton lab, hand-rolled over raw JSON — no wallet, no dApp, no SDK. It ends where it
-    should: <b>100 Canton Coin received and verified on-ledger</b>. A party allocated, <b>granted its
-    own ledger rights</b>, an incoming transfer <b>accepted by hand</b>, and the balance read straight
-    out of the Active Contract Set. Below is the real trace — including the two walls that cost the most
-    time and exactly how each fell — plus honest feedback for the lab team.
+    The full Canton lab, hand-rolled over raw JSON — no wallet, no dApp, no SDK. It runs end to end:
+    <b>100 Canton Coin received and verified on-ledger</b>, then <b>20 of it sent on to a second,
+    non-custodial party that signs its own transactions</b> — a complete transfer round-trip between two
+    parties I own. A party allocated, granted its own ledger rights, transfers accepted by hand, every
+    balance read straight out of the Active Contract Set. Below is the real trace — including the two
+    walls that cost the most time and exactly how each fell — plus honest feedback for the lab team.
   </p>
 
   <div class="artifact reveal" style="animation-delay:.15s">
@@ -177,9 +178,9 @@
   </div>
 
   <div class="tally">
-    <div class="cell t-teal reveal" style="animation-delay:.25s"><div class="num">7</div><div class="lbl">Stages confirmed on-ledger</div></div>
+    <div class="cell t-teal reveal" style="animation-delay:.25s"><div class="num">8</div><div class="lbl">Stages confirmed on-ledger</div></div>
     <div class="cell t-amber reveal" style="animation-delay:.3s"><div class="num">100</div><div class="lbl">Canton Coin received &amp; verified</div></div>
-    <div class="cell t-mut reveal" style="animation-delay:.35s"><div class="num">1</div><div class="lbl">Optional stage wired (Token Standard transfer)</div></div>
+    <div class="cell t-mut reveal" style="animation-delay:.35s"><div class="num">20</div><div class="lbl">CC transferred to a non-custodial party</div></div>
   </div>
 
   <!-- TRACE -->
@@ -236,10 +237,11 @@
         <div class="ev"><span class="c">// Holding interface, post-accept (allowing for PQS lag)</span><br><span class="ok">BALANCE: 100.0</span>  across 1 Holding(s)  <span class="c">// the Canton Coin is held</span></div>
       </div>
 
-      <div class="step todo">
+      <div class="step done">
         <span class="dot"></span>
-        <div class="top"><span class="sn">S8</span><h3>Token Standard transfer</h3><span class="chip c-todo">Wired</span></div>
-        <p>Factory flow built and all inputs resolved — registry (scan-proxy), DSO / instrument-admin, the <span class="mono">Amulet</span> instrument. Optional in the lab; now actually fundable, since there's coin to send.</p>
+        <div class="top"><span class="sn">S8</span><h3>Token Standard transfer — full round-trip</h3><span class="chip c-done">Confirmed</span></div>
+        <p>Sent <b>20 CC from farmfort to farmfort2</b> over the Token Standard rail. The factory needs the complete <span class="mono">TransferFactory_Transfer</span> args — <span class="mono">requestedAt</span>/<span class="mono">executeBefore</span>, <span class="mono">inputHoldingCids</span>, and a two-phase context (request the factory, then exercise with the returned <span class="mono">choiceContext</span> + disclosed contracts). It created an instruction, and <b>farmfort2 accepted it by signing with its own ed25519 key</b> — interactive <span class="mono">prepare → sign → execute</span>, registry accept-context + 4 disclosed contracts. A real transfer between two parties I own: custodial sender, non-custodial receiver.</p>
+        <div class="ev"><span class="c">// TransferFactory_Transfer (sender farmfort) -&gt; 200  · transferKind: offer</span><br>{ "updateId": "1220a9930700…", "completionOffset": <span class="ok">2192974</span> }<br><span class="c">// TransferInstruction_Accept (farmfort2, self-signed) -&gt; 200</span><br><span class="ok">farmfort2 BALANCE: 20.0</span>  across 1 Holding  <span class="c">// farmfort retains 80</span></div>
       </div>
 
     </div>
@@ -260,6 +262,10 @@
       <div class="card win">
         <h4>Find-the-coin &amp; accept</h4>
         <p><code>inbox.py</code> is a wildcard ACS dump that surfaced the <code>TransferOffer</code> a filtered inbox missed; <code>accept.py</code> exercises <code>TransferOffer_Accept</code> and polls the balance. <code>verify.py</code> is a read-only confirm of the preapproval + balance.</p>
+      </div>
+      <div class="card win">
+        <h4>The full transfer round-trip</h4>
+        <p><code>send.py</code> builds the Token Standard <code>TransferFactory_Transfer</code> — timestamps, <code>inputHoldingCids</code>, two-phase factory context; <code>accept_external.py</code> has the non-custodial receiver accept by signing <code>TransferInstruction_Accept</code> with its own key. Custodial out, non-custodial in.</p>
       </div>
       <div class="card win">
         <h4>Shapes validated against the live node</h4>
